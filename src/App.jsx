@@ -30,9 +30,9 @@ function App() {
         <button>Explore!</button>
       </form>
 
-      <h2>{location.display_name}</h2>
-      <h3>{location.lat}</h3>
-      <h3>{location.lon}</h3>
+      <h2>Location: {location.display_name}</h2>
+      <h3>Latitute: {location.lat}</h3>
+      <h3>Longitude: {location.lon}</h3>
 
       {/* //Display name
     //Latitude
