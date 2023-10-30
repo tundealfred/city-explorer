@@ -1,0 +1,37 @@
+img {
+  height: 500px;
+  width: auto;
+  border-radius: 100px;
+  border: 2px solid black;
+}
+
+body {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #488a99;
+}
+
+h1 {
+  color: #dbae58;
+  font-size: 2rem;
+}
+
+h2,
+h3 {
+  color: #fbe9e7;
+}
+
+/* #mapForm {
+  font-size: 2rem;
+} */
+
+#formButton {
+  margin-left: 10px;
+  font-size: 1.5rem;
+}
+
+#formInput {
+  margin-right: 10px;
+  font-size: 1.5rem;
+}
