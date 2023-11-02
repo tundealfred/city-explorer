@@ -7,7 +7,9 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 function App() {
   const [location, setLocation] = useState({});
   const [search, setSearch] = useState("");
+  const [number, setNumber] = useState(10);
   const [mapImgUrl, setMapImgUrl] = useState("");
+  const [weather, setWeather] = useState([]);
 
   function handleChange(event) {
     setSearch(event.target.value);
@@ -34,28 +36,15 @@ function App() {
       setMapImgUrl("");
     }
 
-    //   const MapUrl = `https://maps.locationiq.com/v3/staticmap?key=${API_KEY}&center=${latitude},${longitude}&zoom=12`;
-    //   setMapImgUrl(MapUrl);
-    // } else {
-    //   setLocation({});
-    //   setMapImgUrl("");
-    // }
+    async function getWeather(tempLocation) {
+      const API = `http://localhost:8080/weather?lat=${tempLocation.lat}&lon=${tempLocation.lon}&searchQuery=${search}`;
+      const res = await axios.get(API);
+      setWeather(res.data);
+    }
+  }
 
-    // const res = await axios.get(API);
-    // setLocation(res.data[0]);
-
-    // if (locationData.length > 0) {
-    //   const latitude = locationData[0].lat;
-    //   const longitude = locationData[0].lon;
-
-    //   const staticMapUrl = `https://maps.locationiq.com/v3/staticmap?key=${API_KEY}&center=${latitude},${longitude}&zoom=12`;
-
-    //   setLocation(locationData[0]);
-    //   setMapUrl(staticMapUrl);
-    // } else {
-    //   setLocation({});
-    //   setMapUrl("");
-    // }
+  function handleNumber(mod) {
+    setNumber(number + mod);
   }
 
   return (
@@ -75,7 +64,27 @@ function App() {
       <h3>Latitute: {location.lat}</h3>
       <h3>Longitude: {location.lon}</h3>
 
-      {mapImgUrl && <img src={mapImgUrl} alt="City Map" />}
+      {location.lat && (
+        <div>
+          <button onClick={() => handleNumber(-1)}>-</button>
+          <span>{number}</span>
+          <button onClick={() => handleNumber(1)}>+</button>
+
+          <img
+            src={`https://maps.locationiq.com/v3/staticmap?key=${API_KEY}&center=${location.lat},${location.lon}&zoom=${number}&format=png`}
+          />
+        </div>
+      )}
+
+      {/* {mapImgUrl && <img src={mapImgUrl} alt="City Map" />} */}
+
+      {weather.map((day) => {
+        return (
+          <p key={day.date}>
+            The weather on {day.date} is {day.description}
+          </p>
+        );
+      })}
     </>
   );
 }
